@@ -17,3 +17,7 @@ node build.mjs
 ```
 
 El sitio generado queda en `dist/`. GitHub Pages publica la página estática desde la raíz de la rama `main` y realiza su build al recibir cambios.
+
+## Prácticas para imprimir
+
+La carpeta `imprimibles/` contiene 14 páginas de ejercicios (112 ejercicios), las respuestas para la familia y una guía de uso con la cobertura del temario. Disponibles en https://samofas2011-ux.github.io/practica-matematica-daniel/imprimibles/ .
