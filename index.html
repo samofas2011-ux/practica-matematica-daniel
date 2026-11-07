@@ -34,6 +34,31 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid 
 .combine-row.final{border-color:#67dbb0}.combine-row.final>div{color:#8ef0c4}
 .combine-row small{display:block;margin-top:8px;font-size:16px}
 @media print{.combine-row{background:white;color:black}.combine-row strong,.combine-row.final>div{color:black}}
+
+.unified-board{margin-top:24px;padding:clamp(14px,2vw,28px);border:2px solid #7aa7ff;border-radius:22px;background:#101c2b;animation:unify-appear .3s ease-out}
+.unified-board h3{margin:0 0 10px;font-size:clamp(22px,2.5vw,34px)}
+.unified-caption{font-size:19px;line-height:1.5;color:#c8d7e9}
+.unified-layout{display:grid;grid-template-columns:minmax(220px,.8fr) minmax(0,1.2fr);gap:24px;align-items:start}
+.column-sum{background:#0a1220;border-radius:16px;padding:16px}
+.column-sum table{border-collapse:collapse;margin:auto;font-variant-numeric:tabular-nums;font-size:clamp(30px,4vw,56px);text-align:center}
+.column-sum th{font-size:18px;padding:6px 12px}.column-sum abbr{text-decoration:none}
+.column-sum td{min-width:46px;padding:0 6px}.column-sum .sum-sign{color:#ecf3ff;min-width:32px}
+.place-0{color:#d2b0ff}.place-1{color:#86b0ff}.place-2{color:#55e2d0}.place-3{color:#ffcb79}
+.sum-result td{border-top:3px solid #dceaff;font-weight:800;padding-top:9px}
+.column-sum .carry-row{height:27px;font-size:19px;color:#ffdd8c}
+.exchange-note{font-size:16px;line-height:1.5;color:#d2dfef;margin:16px 0 0}
+.normalized-title{font-size:20px;line-height:1.5;margin-bottom:14px}.normalized-title strong{font-size:28px;color:#8ef0c4}
+.normalized-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.normalized-place{padding:12px;border:1px solid currentColor;border-radius:12px;min-width:0}.normalized-place strong{font-size:16px}
+.base-ten-tokens{display:flex;gap:5px;flex-wrap:wrap;align-content:flex-start;min-height:52px;margin:12px 0}
+.hundred-token{width:30px;height:30px;border:1px solid currentColor;background:repeating-linear-gradient(90deg,transparent 0 2px,currentColor 2px 3px),repeating-linear-gradient(0deg,transparent 0 2px,currentColor 2px 3px);opacity:.85}
+.ten-token{width:9px;height:50px;border:1px solid currentColor;background:repeating-linear-gradient(0deg,transparent 0 4px,currentColor 4px 5px)}
+.one-token{width:10px;height:10px;background:currentColor}.thousand-token{border:2px solid currentColor;font-size:12px;padding:7px 3px;border-radius:5px}
+.empty-tokens{color:#899cb3}.unified-equation{font-size:clamp(22px,2.5vw,32px);line-height:1.5}.unified-equation strong{color:#8ef0c4}
+@keyframes unify-appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:750px){.unified-layout{grid-template-columns:minmax(0,1fr)}.column-sum th{padding:6px 8px}}
+@media(prefers-reduced-motion:reduce){.unified-board{animation:none}}
+@media print{.unified-board,.column-sum{background:white;color:black}.unified-board *{color:black!important}}
 </style><style>
 .mul-panel{margin-top:28px;border:2px solid #7858a8;border-radius:24px;padding:24px;background:#171324}.mul-panel h2{font-size:clamp(27px,3vw,42px);margin:0 0 12px}.mul-options{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:15px 0}.mul-options label{font-size:19px}.mul-question{background:#241c37;border-radius:18px;padding:22px;text-align:center;font-size:clamp(34px,5vw,66px);font-weight:800;letter-spacing:1px}.mul-answer{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center;margin:18px 0}.mul-answer input{width:180px;text-align:center;font-size:28px}.mul-feedback{text-align:center;min-height:36px;font-size:23px;font-weight:700}.mul-explain{background:#242d42;border-radius:15px;padding:18px;font-size:clamp(18px,2vw,25px);line-height:1.65}.mul-explain[hidden]{display:none}.mul-score{font-size:18px;color:#e8d8ff}.mul-panel button.primary{background:#6743b5}.mul-panel input{max-width:100%}
 [hidden]{display:none!important}.toolbar label{align-self:center}#topicSelect{font-size:clamp(18px,2vw,25px);font-weight:750;border:2px solid #82aaff;background:#182b4d;min-width:min(100%,330px)}.topic-module{margin-top:12px}#arithmeticModule{margin-top:12px}@media(max-width:600px){.app{padding:12px}.toolbar{gap:8px}}
@@ -47,7 +72,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid 
 .division-right{min-width:110px;text-align:center;border-left:4px solid #fff}
 .division-d{min-height:76px;border-bottom:4px solid #fff;padding:0 12px 4px}
 .division-q{color:#7ef0ba;padding:5px 12px}
-</style></head><body><main class="app"><h1>🧮 Aula de Daniel</h1><div class="sub">Sumas y restas con centenas, decenas y unidades · Explicación visual paso a paso</div><div class="toolbar"><label for="topicSelect">Operación:</label><select id="topicSelect" onchange="selectTopic(this.value)"><option value="sum">➕ Sumas</option><option value="subtract">➖ Restas</option><option value="area">📐 Áreas irregulares</option><option value="mul">✖️ Multiplicaciones</option><option value="div">➗ Divisiones</option></select></div><div id="arithmeticModule"><div class="toolbar"><button onclick="previous()">← Ejemplo anterior</button><select id="example" onchange="choose(+this.value)"></select><button onclick="next()">Siguiente ejemplo →</button><button onclick="randomExample()">🎲 Nuevo ejemplo</button><button onclick="document.documentElement.requestFullscreen?.()">⛶ Pantalla completa</button></div><div class="counter" id="counter"></div><section class="panel"><section class="lesson-guide" id="arithmeticGuide" aria-label="Explicación paso a paso"><h3>Explicación paso a paso</h3><div class="explain" id="explain" aria-live="polite" aria-atomic="true"></div><div id="combineSteps" class="combine-steps" aria-live="polite" hidden></div><div class="steps" id="steps"></div><div class="controls"><button onclick="back()">← Paso anterior</button><button class="primary" onclick="advance()">Mostrar siguiente paso →</button><button onclick="reveal()">Mostrar todo</button><button onclick="reset()">↻ Reiniciar explicación</button></div></section><div class="two" id="numberCards"></div><div class="three" id="places"></div><div class="total"><div class="muted">Ahora sumamos los resultados</div><div id="total"></div></div></section><div class="custom"><strong>Crear tu ejemplo:</strong><label for="count">Cantidad de números:</label><select id="count" onchange="setCount(+this.value)"><option value="2">2 números</option><option value="3">3 números</option></select><span id="customInputs"></span><button onclick="customExample()">Explicar estos números</button></div><p class="tip">Consejo para proyectar: utiliza el botón «Pantalla completa». Puedes sumar o restar dos o tres números de 2 o 3 cifras. En las restas, los ejemplos mantienen un resultado no negativo y explican los préstamos. Primero muestra las cantidades, luego revela centenas, decenas, unidades y finalmente el total. También puedes usar las flechas del teclado para avanzar o retroceder.</p>
+</style></head><body><main class="app"><h1>🧮 Aula de Daniel</h1><div class="sub">Sumas y restas con centenas, decenas y unidades · Explicación visual paso a paso</div><div class="toolbar"><label for="topicSelect">Operación:</label><select id="topicSelect" onchange="selectTopic(this.value)"><option value="sum">➕ Sumas</option><option value="subtract">➖ Restas</option><option value="area">📐 Áreas irregulares</option><option value="mul">✖️ Multiplicaciones</option><option value="div">➗ Divisiones</option></select></div><div id="arithmeticModule"><div class="toolbar"><button onclick="previous()">← Ejemplo anterior</button><select id="example" onchange="choose(+this.value)"></select><button onclick="next()">Siguiente ejemplo →</button><button onclick="randomExample()">🎲 Nuevo ejemplo</button><button onclick="document.documentElement.requestFullscreen?.()">⛶ Pantalla completa</button></div><div class="counter" id="counter"></div><section class="panel"><section class="lesson-guide" id="arithmeticGuide" aria-label="Explicación paso a paso"><h3>Explicación paso a paso</h3><div class="explain" id="explain" aria-live="polite" aria-atomic="true"></div><div id="combineSteps" class="combine-steps" aria-live="polite" hidden></div><div class="steps" id="steps"></div><div class="controls"><button onclick="back()">← Paso anterior</button><button class="primary" onclick="advance()">Mostrar siguiente paso →</button><button onclick="reveal()">Mostrar todo</button><button onclick="reset()">↻ Reiniciar explicación</button></div></section><div class="two" id="numberCards"></div><div class="three" id="places"></div><section id="unifiedBlocks" class="unified-board" aria-label="Bloques reunidos en una sola suma" hidden></section><div class="total"><div class="muted">Ahora sumamos los resultados</div><div id="total"></div></div></section><div class="custom"><strong>Crear tu ejemplo:</strong><label for="count">Cantidad de números:</label><select id="count" onchange="setCount(+this.value)"><option value="2">2 números</option><option value="3">3 números</option></select><span id="customInputs"></span><button onclick="customExample()">Explicar estos números</button></div><p class="tip">Consejo para proyectar: utiliza el botón «Pantalla completa». Puedes sumar o restar dos o tres números de 2 o 3 cifras. En las restas, los ejemplos mantienen un resultado no negativo y explican los préstamos. Primero muestra las cantidades, luego revela centenas, decenas, unidades y finalmente el total. También puedes usar las flechas del teclado para avanzar o retroceder.</p>
 </div><div class="area-nav" style="display:none"><button onclick="document.getElementById('areaModule').scrollIntoView({behavior:'smooth'})">📐 Ir a áreas irregulares ↓</button><button onclick="window.scrollTo({top:0,behavior:'smooth'})">🧮 Volver a sumas y restas ↑</button></div>
 <section class="area-panel topic-module" id="areaModule" hidden>
 <h2 class="area-title">📐 Áreas de figuras irregulares</h2>
@@ -90,10 +115,46 @@ function subtractionData(){
  const topValues=top.map((n,i)=>n*values[i]);
  return {raw,top,bottom,topValues,results,borrowed};
 }
+
+function unifiedVisual(parts){
+ const [hundreds,tens,units]=parts,subtotal=tens+units;
+ const addends=stage===4?[tens,units]:stage===5?[hundreds,subtotal]:parts;
+ const result=addends.reduce((a,b)=>a+b,0);
+ const cols=[1000,100,10,1],names=['Millares','Centenas','Decenas','Unidades'];
+ const singular=['millar','centena','decena','unidad'];
+ const placeName=(i,n)=>n===1?singular[i]:names[i].toLowerCase();
+ const digit=(n,place)=>Math.floor(n/place)%10;
+ let carry=0;const carries=[0,0,0,0],exchanges=[];
+ for(let i=3;i>=0;i--){
+  const column=addends.reduce((n,a)=>n+digit(a,cols[i]),0)+carry;
+  carry=Math.floor(column/10);
+  if(i>0){carries[i-1]=carry;if(carry)exchanges.push(`${carry*10} ${names[i].toLowerCase()} → ${carry} ${placeName(i-1,carry)}`)}
+ }
+ const showThousands=result>=1000;
+ const visible=showThousands?[0,1,2,3]:[1,2,3];
+ const row=(n,sign='',cls='')=>`<tr class="${cls}"><td class="sum-sign">${sign}</td>${visible.map(i=>`<td class="place-${i}">${n>=cols[i]||cols[i]===1?digit(n,cols[i]):''}</td>`).join('')}</tr>`;
+ const carryRow=`<tr class="carry-row"><td></td>${visible.map(i=>`<td>${carries[i]?`<span aria-label="Llevamos ${carries[i]}">+${carries[i]}</span>`:''}</td>`).join('')}</tr>`;
+ const title=stage===4?'Juntamos decenas y unidades':stage===5?'Sumamos las centenas al bloque reunido':'Todos los bloques forman un solo resultado';
+ const caption=stage===4?`Reservamos ${fmt(hundreds)} del bloque de centenas. Ahora reunimos ${fmt(tens)} y ${fmt(units)}.`:stage===5?`Las decenas y unidades ya forman ${fmt(subtotal)}. Ahora añadimos ${fmt(hundreds)}.`:`Los resultados de los tres bloques se suman en una sola operación, alineados por su valor.`;
+ const regroupUnits=stage===4&&units>=10?`${units} unidades = ${Math.floor(units/10)} ${placeName(2,Math.floor(units/10))} + ${units%10} ${placeName(3,units%10)}. `:'';
+ const shapes=(place,n)=>Array.from({length:n},()=>{
+  if(place===0)return '<span class="thousand-token">1000</span>';
+  if(place===1)return '<span class="hundred-token" aria-hidden="true"></span>';
+  if(place===2)return '<span class="ten-token" aria-hidden="true"></span>';
+  return '<span class="one-token" aria-hidden="true"></span>';
+ }).join('');
+ const normalized=visible.map(i=>{const n=digit(result,cols[i]);return `<div class="normalized-place place-${i}"><strong>${n} ${placeName(i,n)}</strong><div class="base-ten-tokens" aria-label="${n} bloques de ${cols[i]}">${shapes(i,n)||'<span class="empty-tokens">0</span>'}</div><small>${fmt(n*cols[i])}</small></div>`}).join('');
+ $('unifiedBlocks').innerHTML=`<h3>${title}</h3><p class="unified-caption">${caption}</p><div class="unified-layout"><div class="column-sum"><table aria-label="${addends.join(' más ')} igual a ${result}"><thead><tr><th></th>${visible.map(i=>`<th scope="col" class="place-${i}"><abbr title="${names[i]}">${names[i][0]}</abbr></th>`).join('')}</tr></thead><tbody>${carryRow}${addends.map((n,i)=>row(n,i===addends.length-1?'+':'')).join('')}${row(result,'=','sum-result')}</tbody></table><p class="exchange-note">${regroupUnits}${exchanges.length?exchanges.join(' · '):'Cada cifra va en su columna: unidades debajo de unidades, decenas debajo de decenas y centenas debajo de centenas.'}</p></div><div class="normalized-result"><div class="normalized-title">Así queda el bloque unificado: <strong>${fmt(result)}</strong></div><div class="normalized-grid">${normalized}</div><p class="unified-equation">${addends.map(fmt).join(' + ')} = <strong>${fmt(result)}</strong></p></div></div>`;
+}
+
 function update(){
  const isSum=operation==='sum',pieces=current.map(split);
  const sums=isSum?[0,1,2].map(i=>pieces.reduce((t,p)=>t+p[i],0)):subtractionData().results;
  const sub=isSum?null:subtractionData();
+ $('numberCards').hidden=stage>=4;
+ $('places').hidden=stage>=4;
+ $('unifiedBlocks').hidden=stage<4;
+ if(stage>=4)unifiedVisual(sums);
  $('numberCards').style.setProperty('--count',current.length);
  $('numberCards').innerHTML=current.map((n,i)=>`<div class="number"><div class="caption">${['PRIMER','SEGUNDO','TERCER'][i]} NÚMERO</div><strong>${n}</strong><small>${pieces[i].join(' + ')}</small></div>`).join('');
  $('counter').textContent=custom?'Ejemplo personalizado':`Ejemplo ${index+1} de ${examples().length} · ${isSum?'SUMA':'RESTA'}`;
